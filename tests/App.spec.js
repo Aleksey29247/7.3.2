@@ -1,0 +1,66 @@
+const users = require("../user");
+
+const { test, expect } = require("@playwright/test");
+
+test("test", async ({ page }) => {
+ 
+  
+  // Go to https://netology.ru/
+  await page.goto('https://netology.ru/');
+
+  // Click text=Войти
+  await page.click('text=Войти');
+  await expect(page).toHaveURL('https://netology.ru/?modal=sign_in');
+
+  // Click [placeholder="Email"]
+  await page.click('[placeholder="Email"]');
+
+  // Fill [placeholder="Email"]
+  await page.fill('[placeholder="Email"]',users.users);
+
+  // Click [placeholder="Пароль"]
+  await page.click('[placeholder="Пароль"]');
+
+  // Fill [placeholder="Пароль"]
+  await page.fill('[placeholder="Пароль"]', users.password);
+
+  // Click [data-testid="login-submit-btn"]
+  await page.click('[data-testid="login-submit-btn"]');
+  //2-3 задание
+   // Click text=Мои курсы и профессии
+  await page.click('text=Мои курсы и профессии');
+
+  //4 задание
+  ///await page.pause();
+  // Click [data-testid="menu-userface"] div
+  await page.click('[data-testid="menu-userface"] div');
+  // Click text=Выйти
+  await Promise.all([
+    page.waitForNavigation(/*{ url: 'https://netology.ru/profile#/' }*/),
+    page.click('text=Выйти')
+  ]);
+
+  await page.goto('https://netology.ru/');
+
+  // Click text=Войти
+  await page.click('text=Войти');
+  await expect(page).toHaveURL('https://netology.ru/?modal=sign_in');
+
+  // Click [placeholder="Email"]
+  await page.click('[placeholder="Email"]');
+
+  // Fill [placeholder="Email"]
+  await page.fill('[placeholder="Email"]',users.users1);
+
+  // Click [placeholder="Пароль"]
+  await page.click('[placeholder="Пароль"]');
+
+  // Fill [placeholder="Пароль"]
+  await page.fill('[placeholder="Пароль"]', users.password1);
+
+  // Click [data-testid="login-submit-btn"]
+  await page.click('[data-testid="login-submit-btn"]');
+   // Click text=Неверный email
+  await page.click('text=Неверный email');
+});
+
